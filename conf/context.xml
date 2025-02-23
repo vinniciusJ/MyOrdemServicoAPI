@@ -1,0 +1,5 @@
+<Context privileged="true">
+    <!-- Remove or modify the RemoteAddrValve restriction -->
+    <!-- Remove the allow property or set it to allow all IPs -->
+    <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow=".*" />
+</Context>
