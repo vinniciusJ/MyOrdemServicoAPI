@@ -4,6 +4,8 @@ import br.unioeste.geral.ordemservico.bo.ordemservico.OrdemServico;
 import br.unioeste.geral.ordemservico.bo.tiposervico.TipoServico;
 import br.unioeste.geral.ordemservico.servico.service.ordemservico.UCOrdemServicoServicos;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,6 +23,9 @@ public class ObterOrdemServicoPorNumeroServlet extends HttpServlet {
     public ObterOrdemServicoPorNumeroServlet(){
         objectMapper = new ObjectMapper();
         ordemServicoServicos = new UCOrdemServicoServicos();
+
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
     @Override
