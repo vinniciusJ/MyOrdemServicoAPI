@@ -1,7 +1,6 @@
-package br.unioeste.geral.ordemservico.api.endereco;
+package br.unioeste.geral.ordemservico.api.endereco.cidade;
 
-import br.unioeste.geral.endereco.bo.logradouro.Logradouro;
-import br.unioeste.geral.endereco.bo.unidadefederativa.UnidadeFederativa;
+import br.unioeste.geral.endereco.bo.cidade.Cidade;
 import br.unioeste.geral.endereco.servico.service.UCEnderecoServicos;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -11,14 +10,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet("/endereco/logradouro/")
-public class ObterLogradourosServlet extends HttpServlet  {
+@WebServlet("/endereco/cidade/id")
+public class ObterCidadePorIDServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
     private final UCEnderecoServicos enderecoServicos;
 
-    public ObterLogradourosServlet(){
+    public ObterCidadePorIDServlet(){
         objectMapper = new ObjectMapper();
         enderecoServicos = new UCEnderecoServicos();
     }
@@ -29,10 +27,13 @@ public class ObterLogradourosServlet extends HttpServlet  {
         response.setCharacterEncoding("UTF-8");
 
         try{
-            List<Logradouro> logradouros = enderecoServicos.obterLogradouros();
-            String logradourosResponse = objectMapper.writeValueAsString(logradouros);
+            Long id = Long.valueOf(request.getParameter("id"));
 
-            response.getWriter().write(logradourosResponse);
+            Cidade cidade = enderecoServicos.obterCidadePorID(id);
+
+            String cidadeResponse = objectMapper.writeValueAsString(cidade);
+
+            response.getWriter().write(cidadeResponse);
         }
         catch (Exception e){
             String errorJSON = objectMapper.writeValueAsString(e);

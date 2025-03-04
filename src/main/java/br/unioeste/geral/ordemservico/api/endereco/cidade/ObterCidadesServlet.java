@@ -1,4 +1,4 @@
-package br.unioeste.geral.ordemservico.api.endereco;
+package br.unioeste.geral.ordemservico.api.endereco.cidade;
 
 import br.unioeste.geral.endereco.bo.cidade.Cidade;
 import br.unioeste.geral.endereco.servico.service.UCEnderecoServicos;
@@ -12,12 +12,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/endereco/cidade/id")
-public class ObterCidadePorIDServlet extends HttpServlet {
+@WebServlet("/endereco/cidade")
+public class ObterCidadesServlet extends HttpServlet  {
     private final ObjectMapper objectMapper;
     private final UCEnderecoServicos enderecoServicos;
 
-    public ObterCidadePorIDServlet(){
+    public ObterCidadesServlet(){
         objectMapper = new ObjectMapper();
         enderecoServicos = new UCEnderecoServicos();
     }
@@ -28,13 +28,10 @@ public class ObterCidadePorIDServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         try{
-            Long id = Long.valueOf(request.getParameter("id"));
+            List<Cidade> cidades = enderecoServicos.obterCidades();
+            String cidadesResponse = objectMapper.writeValueAsString(cidades);
 
-            Cidade cidade = enderecoServicos.obterCidadePorID(id);
-
-            String cidadeResponse = objectMapper.writeValueAsString(cidade);
-
-            response.getWriter().write(cidadeResponse);
+            response.getWriter().write(cidadesResponse);
         }
         catch (Exception e){
             String errorJSON = objectMapper.writeValueAsString(e);

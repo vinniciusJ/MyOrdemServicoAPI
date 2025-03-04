@@ -1,7 +1,7 @@
-package br.unioeste.geral.ordemservico.api.cliente;
+package br.unioeste.geral.ordemservico.api.endereco.unidadefederativa;
 
-import br.unioeste.geral.ordemservico.bo.cliente.Cliente;
-import br.unioeste.geral.ordemservico.servico.service.cliente.UCClienteServicos;
+import br.unioeste.geral.endereco.bo.unidadefederativa.UnidadeFederativa;
+import br.unioeste.geral.endereco.servico.service.UCEnderecoServicos;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,14 +12,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/cliente")
-public class ObterClientesServlet extends HttpServlet {
+@WebServlet("/endereco/unidade-federativa")
+public class ObterUnidadesFederativas extends HttpServlet  {
     private final ObjectMapper objectMapper;
-    private final UCClienteServicos clienteServicos;
+    private final UCEnderecoServicos enderecoServicos;
 
-    public ObterClientesServlet(){
+    public ObterUnidadesFederativas(){
         objectMapper = new ObjectMapper();
-        clienteServicos = new UCClienteServicos();
+        enderecoServicos = new UCEnderecoServicos();
     }
 
     @Override
@@ -28,11 +28,10 @@ public class ObterClientesServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         try{
-            List<Cliente> clientes = clienteServicos.obterClientes();
+            List<UnidadeFederativa> unidadeFederativas = enderecoServicos.obterUnidadeFederativas();
+            String unidadesFederativasJSON = objectMapper.writeValueAsString(unidadeFederativas);
 
-            String clientesResponse = objectMapper.writeValueAsString(clientes);
-
-            response.getWriter().write(clientesResponse);
+            response.getWriter().write(unidadesFederativasJSON);
         }
         catch (Exception e){
             String errorJSON = objectMapper.writeValueAsString(e);

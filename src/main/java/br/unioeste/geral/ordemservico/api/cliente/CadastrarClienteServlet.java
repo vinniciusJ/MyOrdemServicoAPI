@@ -1,7 +1,7 @@
 package br.unioeste.geral.ordemservico.api.cliente;
 
 import br.unioeste.geral.ordemservico.bo.cliente.Cliente;
-import br.unioeste.geral.ordemservico.servico.service.UCClienteServicos;
+import br.unioeste.geral.ordemservico.servico.service.cliente.UCClienteServicos;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

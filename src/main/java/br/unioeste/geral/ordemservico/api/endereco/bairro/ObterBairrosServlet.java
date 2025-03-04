@@ -1,7 +1,7 @@
-package br.unioeste.geral.ordemservico.api.cliente;
+package br.unioeste.geral.ordemservico.api.endereco.bairro;
 
-import br.unioeste.geral.ordemservico.bo.cliente.Cliente;
-import br.unioeste.geral.ordemservico.servico.service.cliente.UCClienteServicos;
+import br.unioeste.geral.endereco.bo.bairro.Bairro;
+import br.unioeste.geral.endereco.servico.service.UCEnderecoServicos;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,14 +12,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/cliente")
-public class ObterClientesServlet extends HttpServlet {
+@WebServlet("/endereco/bairro")
+public class ObterBairrosServlet extends HttpServlet  {
     private final ObjectMapper objectMapper;
-    private final UCClienteServicos clienteServicos;
+    private final UCEnderecoServicos enderecoServicos;
 
-    public ObterClientesServlet(){
+    public ObterBairrosServlet(){
         objectMapper = new ObjectMapper();
-        clienteServicos = new UCClienteServicos();
+        enderecoServicos = new UCEnderecoServicos();
     }
 
     @Override
@@ -28,11 +28,10 @@ public class ObterClientesServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         try{
-            List<Cliente> clientes = clienteServicos.obterClientes();
+            List<Bairro> bairros = enderecoServicos.obterBairros();
+            String bairrosJSON = objectMapper.writeValueAsString(bairros);
 
-            String clientesResponse = objectMapper.writeValueAsString(clientes);
-
-            response.getWriter().write(clientesResponse);
+            response.getWriter().write(bairrosJSON);
         }
         catch (Exception e){
             String errorJSON = objectMapper.writeValueAsString(e);

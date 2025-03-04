@@ -21,9 +21,7 @@ services:
       DB_USER: esi
       DB_PASSWORD: esi
     volumes:
-      - ./target/MyOrdemServicoAPI-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/api.war
-      - ./conf/context.xml:/usr/local/tomcat/conf/context.xml
-      - ./conf/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
+      - ./target/MyOrdemServicoAPI-1.0.1.war:/usr/local/tomcat/webapps/ROOT.war
     depends_on:
       - ordem-de-servico-bd
 

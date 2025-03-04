@@ -1,7 +1,8 @@
-package br.unioeste.geral.ordemservico.api.cliente;
+package br.unioeste.geral.ordemservico.api.endereco;
 
-import br.unioeste.geral.ordemservico.bo.cliente.Cliente;
-import br.unioeste.geral.ordemservico.servico.service.cliente.UCClienteServicos;
+import br.unioeste.geral.endereco.bo.endereco.Endereco;
+import br.unioeste.geral.endereco.bo.unidadefederativa.UnidadeFederativa;
+import br.unioeste.geral.endereco.servico.service.UCEnderecoServicos;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,14 +13,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/cliente")
-public class ObterClientesServlet extends HttpServlet {
+@WebServlet("/endereco/")
+public class ObterEnderecos extends HttpServlet  {
     private final ObjectMapper objectMapper;
-    private final UCClienteServicos clienteServicos;
+    private final UCEnderecoServicos enderecoServicos;
 
-    public ObterClientesServlet(){
+    public ObterEnderecos(){
         objectMapper = new ObjectMapper();
-        clienteServicos = new UCClienteServicos();
+        enderecoServicos = new UCEnderecoServicos();
     }
 
     @Override
@@ -28,11 +29,10 @@ public class ObterClientesServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         try{
-            List<Cliente> clientes = clienteServicos.obterClientes();
+            List<Endereco> enderecos = enderecoServicos.obterEnderecos();
+            String enderecosJSON = objectMapper.writeValueAsString(enderecos);
 
-            String clientesResponse = objectMapper.writeValueAsString(clientes);
-
-            response.getWriter().write(clientesResponse);
+            response.getWriter().write(enderecosJSON);
         }
         catch (Exception e){
             String errorJSON = objectMapper.writeValueAsString(e);

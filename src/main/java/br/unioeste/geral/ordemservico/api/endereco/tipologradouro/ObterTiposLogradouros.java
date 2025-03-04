@@ -1,6 +1,6 @@
-package br.unioeste.geral.ordemservico.api.endereco;
+package br.unioeste.geral.ordemservico.api.endereco.tipologradouro;
 
-import br.unioeste.geral.endereco.bo.bairro.Bairro;
+import br.unioeste.geral.endereco.bo.tipologradouro.TipoLogradouro;
 import br.unioeste.geral.endereco.servico.service.UCEnderecoServicos;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -12,12 +12,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/endereco/bairro/")
-public class ObterBairrosServlet extends HttpServlet  {
+@WebServlet("/endereco/tipo-logradouro")
+public class ObterTiposLogradouros extends HttpServlet  {
     private final ObjectMapper objectMapper;
     private final UCEnderecoServicos enderecoServicos;
 
-    public ObterBairrosServlet(){
+    public ObterTiposLogradouros(){
         objectMapper = new ObjectMapper();
         enderecoServicos = new UCEnderecoServicos();
     }
@@ -28,10 +28,10 @@ public class ObterBairrosServlet extends HttpServlet  {
         response.setCharacterEncoding("UTF-8");
 
         try{
-            List<Bairro> bairros = enderecoServicos.obterBairros();
-            String bairrosJSON = objectMapper.writeValueAsString(bairros);
+            List<TipoLogradouro> tiposLogradouro = enderecoServicos.obterTiposLogradouros();
+            String tiposLogradourosJSON = objectMapper.writeValueAsString(tiposLogradouro);
 
-            response.getWriter().write(bairrosJSON);
+            response.getWriter().write(tiposLogradourosJSON);
         }
         catch (Exception e){
             String errorJSON = objectMapper.writeValueAsString(e);
