@@ -21,6 +21,9 @@ public class CadastrarOrdemServicoServlet extends HttpServlet {
     public CadastrarOrdemServicoServlet(){
         objectMapper = new ObjectMapper();
         ordemServicoServicos = new UCOrdemServicoServicos();
+
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
     @Override

@@ -36,6 +36,7 @@ public class CadastrarClienteServlet extends HttpServlet {
             response.getWriter().write(clienteResponse);
         }
         catch (Exception e){
+            System.out.println(e.getMessage());
             String errorJSON = objectMapper.writeValueAsString(e);
 
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
