@@ -47,6 +47,12 @@
         </dependency>
 
         <dependency>
+            <groupId>br.unioeste.geral.ordemservico.chatbot</groupId>
+            <artifactId>MyOrdemServicoChatbot</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
+        <dependency>
             <groupId>br.unioeste.geral.ordemservico.servico</groupId>
             <artifactId>MyOrdemServicoServicos</artifactId>
             <version>1.0.1</version>

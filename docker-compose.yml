@@ -20,6 +20,8 @@ services:
       DB_URL: jdbc:postgresql://ordem-de-servico-bd:5432/so
       DB_USER: esi
       DB_PASSWORD: esi
+      GEMINI_API_URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=
+      GEMINI_API_KEY: AIzaSyCz2hfaInVMSl7TQGeskL_ZmJosBaFCqi8
     volumes:
       - ./target/MyOrdemServicoAPI-1.0.1.war:/usr/local/tomcat/webapps/ROOT.war
     depends_on:
