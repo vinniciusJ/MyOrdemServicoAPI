@@ -1,6 +1,7 @@
 package br.unioeste.geral.ordemservico.api.chatbot;
 
 import br.unioeste.geral.ordemservico.bo.cliente.Cliente;
+import br.unioeste.geral.ordemservico.chatbot.dto.RespostaIA;
 import br.unioeste.geral.ordemservico.chatbot.service.UCChatbotServicos;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -29,9 +30,11 @@ public class ChatbotServlet extends HttpServlet {
 
         try{
             String mensagem = request.getParameter("mensagem");
-            String resposta = chatbotServicos.enviarMensagem(mensagem);
+            RespostaIA<?> resposta = chatbotServicos.obterResposta(mensagem);
 
-            response.getWriter().write(resposta);
+            String respostaJSON = objectMapper.writeValueAsString(resposta);
+
+            response.getWriter().write(respostaJSON);
         }
         catch (Exception e){
             String errorJSON = objectMapper.writeValueAsString(e);
