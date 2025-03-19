@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/endereco/")
+@WebServlet("/endereco")
 public class ObterEnderecos extends HttpServlet  {
     private final ObjectMapper objectMapper;
     private final UCEnderecoServicos enderecoServicos;
